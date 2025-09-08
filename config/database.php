@@ -93,6 +93,34 @@ return [
             // 'trust_server_certificate' => env('DB_TRUST_SERVER_CERTIFICATE', 'false'),
         ],
 
+        'companies_house_mx' => [
+            'driver' => 'mysql',
+            'host' => env('DB_MX_HOST', 'localhost'),
+            'port' => env('DB_MX_PORT', '3306'),
+            'database' => env('DB_MX_DATABASE', 'forge'),
+            'username' => env('DB_MX_USERNAME', 'forge'),
+            'password' => env('DB_MX_PASSWORD', ''),
+            'charset' => 'utf8mb4',
+            'collation' => 'utf8mb4_unicode_ci',
+            'prefix' => '',
+            'strict' => true,
+            'engine' => null,
+        ],
+
+        'companies_house_sg' => [
+            'driver' => 'mysql',
+            'host' => env('DB_SG_HOST', 'localhost'),
+            'port' => env('DB_SG_PORT', '3306'),
+            'database' => env('DB_SG_DATABASE', 'forge'),
+            'username' => env('DB_SG_USERNAME', 'forge'),
+            'password' => env('DB_SG_PASSWORD', ''),
+            'charset' => 'utf8mb4',
+            'collation' => 'utf8mb4_unicode_ci',
+            'prefix' => '',
+            'strict' => true,
+            'engine' => null,
+        ],
+
     ],
 
     /*
