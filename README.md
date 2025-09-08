@@ -1,66 +1,275 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Company Search & Reports Application
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+A Laravel-based centralized company search and reports system that integrates with Singapore (SG) and Mexico (MX) company databases. The application allows unified search across multiple databases, displays company details with country-specific report logic, and includes a shopping cart functionality for purchasing reports.
 
-## About Laravel
+## Features
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+### Unified Company Search
+- **Multi-database search**: Search across Singapore and Mexico company databases simultaneously
+- **Real-time search**: AJAX-powered search with instant results
+- **Flexible search criteria**: Search by company name, registration number, or slug
+- **Optimized performance**: Efficient queries with proper indexing and limits
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+### Company Details
+- **Country-specific logic**: Different report availability rules for SG vs MX companies
+- **Singapore (SG)**: All companies have access to all available reports
+- **Mexico (MX)**: Reports available depend on the company's state
+- **Comprehensive information**: Display company details, addresses, and available reports
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+### Shopping Cart System
+- **Mixed country support**: Handle reports from different countries in the same cart
+- **Dynamic pricing**: Correct pricing logic based on country-specific rules
+- **Session-based cart**: Persistent cart across page visits
+- **Quantity management**: Add, update, and remove items with quantity controls
 
-## Learning Laravel
+### Modern UI/UX
+- **Responsive design**: Mobile-first approach with Tailwind CSS
+- **Professional interface**: Clean, modern design with intuitive navigation
+- **Real-time feedback**: Loading states, success/error messages
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## Technical Architecture
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+### Database Design
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+#### Singapore Database (`companies_house_sg`)
+- **companies**: Company information with direct report access
+- **reports**: Available reports with pricing information
+- **Logic**: All companies have access to all reports
 
-## Laravel Sponsors
+#### Mexico Database (`companies_house_mx`)
+- **companies**: Company information linked to states
+- **states**: Mexican states information
+- **reports**: Available report types
+- **report_state**: Junction table linking reports to states with pricing
+- **Logic**: Reports available based on company's state
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+### Laravel Implementation
 
-### Premium Partners
+#### Models
+- `CompanySg`: Singapore companies with direct report relationships
+- `CompanyMx`: Mexico companies with state-based report relationships
+- `ReportSg`: Singapore reports with pricing
+- `ReportMx`: Mexico reports
+- `State`: Mexican states
+- `ReportState`: Junction model for state-report relationships
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+#### Controllers
+- `CompanyController`: Handles search and company details
+- `CartController`: Manages shopping cart operations
 
-## Contributing
+#### Key Features
+- **Multi-database connections**: Separate database connections for SG and MX
+- **Eloquent relationships**: Proper model relationships for data integrity
+- **Validation**: Comprehensive input validation and error handling
+- **AJAX support**: Real-time search and cart operations
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+## Installation & Setup
 
-## Code of Conduct
+### Prerequisites
+- PHP 8.1 or higher
+- Composer
+- MySQL
+- Node.js and npm (for frontend assets)
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+### Installation Steps
 
-## Security Vulnerabilities
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/abubaker417/company-search-app.git
+   cd company-search-app
+   ```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+2. **Install PHP dependencies**
+   ```bash
+   composer install
+   ```
 
-## License
+3. **Install Node.js dependencies**
+   ```bash
+   npm install
+   ```
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+4. **Environment setup**
+   ```bash
+   cp .env.example .env
+   php artisan key:generate
+   ```
+
+5. **Database configuration**
+   The application uses mysql databases. Update `.env` if using different databases:
+   
+   ```env
+   DB_MX_HOST=mysql
+   DB_MX_PORT=3306
+   DB_MX_DATABASE=companies_house_mx
+   DB_MX_USERNAME=root
+   DB_MX_PASSWORD=rootadmin123
+   
+   DB_SG_HOST=mysql
+   DB_SG_PORT=3306
+   DB_SG_DATABASE=companies_house_sg
+   DB_SG_USERNAME=root
+   DB_SG_PASSWORD=rootadmin123
+   ```
+   
+6. **Run migrations**
+   ```bash
+   php artisan migrate
+   ```
+
+8. **Start the development server**
+   ```bash
+   php artisan serve
+   ```
+
+9. **Access the application**
+   Open your browser and navigate to `http://localhost:8000`
+
+## Usage
+
+### Searching Companies
+1. Navigate to the home page
+2. Enter a company name, registration number, or partial text
+3. View real-time search results from both Singapore and Mexico databases
+4. Click "View Details" to see company information and available reports
+
+### Viewing Company Details
+1. From search results, click on a company
+2. View comprehensive company information
+3. See available reports based on country-specific logic:
+   - **Singapore**: All reports available to all companies
+   - **Mexico**: Reports available based on company's state
+
+### Shopping Cart
+1. From company details page, select reports and quantities
+2. Click "Add to Cart" to add items
+3. Navigate to cart to review items and quantities
+4. Update quantities or remove items as needed
+5. View total pricing with country-specific calculations
+
+## API Endpoints
+
+### Company Search
+- `GET /companies` - Company search page
+- `GET /companies/search?q={query}` - Search companies (AJAX)
+- `GET /companies/{country}/{id}` - Company details
+- `GET /companies/{country}/{id}/reports` - Company reports (AJAX)
+
+### Cart Operations
+- `GET /cart` - View cart
+- `POST /cart/add` - Add item to cart
+- `PUT /cart/update/{key}` - Update item quantity
+- `DELETE /cart/remove/{key}` - Remove item from cart
+- `DELETE /cart/clear` - Clear entire cart
+- `GET /cart/count` - Get cart item count (AJAX)
+
+### Performance Optimizations
+- **Database indexing**: Proper indexes on search fields
+- **Query optimization**: Efficient Eloquent relationships
+- **Caching**: Session-based cart and search result caching
+- **Pagination**: Limit search results to prevent memory issues
+- **AJAX loading**: Real-time search without page reloads
+
+## Testing
+
+### Manual Testing
+1. **Search functionality**: Test various search terms
+2. **Company details**: Verify country-specific report logic
+3. **Cart operations**: Test add, update, remove, and clear operations
+4. **Cross-country cart**: Mix reports from different countries
+5. **Responsive design**: Test on different screen sizes
+
+## Deployment
+
+### Production
+1. **Environment variables**: Properly configured with production values to ensure security and stability.
+2. **Database**: Connected to the production database (MySQL) with optimized settings for performance.
+4. **SSL & Security**: Configured HTTPS with an SSL certificate for secure data transmission.
+
+### Hosting & Deployment
+
+  - **Dedicated VPS (IONOS)**
+    - Application deployed on a **dedicated VPS** purchased from **IONOS**.
+    - Configured with **sub-domain mapping**, **SSL certificates**, and production-ready environment.
+
+## Dockerized Setup
+
+You can run the app fully containerized using the provided `Dockerfile` and `docker-compose.yml`.
+
+### Files
+
+```Dockerfile
+FROM php:8.1-fpm
+
+ARG user
+ARG uid
+
+USER root
+
+RUN apt-get update && apt-get install -y \
+    git \
+    curl \
+    libpng-dev \
+    libonig-dev \
+    libxml2-dev \
+    zip \
+    unzip && \
+    apt-get clean && rm -rf /var/lib/apt/lists/*
+
+RUN docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd
+
+COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+
+RUN chown -R www-data:www-data /var/www
+
+WORKDIR /var/www
+
+RUN php --version && composer --version
+EXPOSE 8001
+CMD ["sh","-c","php artisan serve  --host=0.0.0.0 --port=8001"]
+```
+
+```yaml
+version: '3.8'
+
+services:
+  company-search-app:
+    build: ./
+    container_name: company-search-app
+    volumes:
+      - ./:/var/www
+    restart: unless-stopped
+    ports:
+      - "5003:8001"
+    networks:
+      - pg-network
+
+networks:
+  pg-network:
+    external: true
+```
+
+### Prerequisites
+
+- Docker and Docker Compose installed
+- External Docker network named `pg-network` (or change the compose file)
+
+Create the external network if you don't already have it:
+
+```bash
+docker network create pg-network || true
+```
+
+### First-time Setup (inside the container)
+
+Build and start the container:
+
+```bash
+docker compose up --build -d
+```
+
+Access the app at:
+
+- `http://localhost:5003`
+
+The container starts Laravel's built-in server on port 8001 and maps it to 5003 on your host.
