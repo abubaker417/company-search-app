@@ -36,10 +36,10 @@ class CompanySg extends Model
      * Get all reports for Singapore companies
      * In Singapore, all companies have access to all reports
      */
-    public function reports()
-    {
-        return $this->hasMany(ReportSg::class, 'id', 'id');
-    }
+    // public function reports()
+    // {
+    //     return $this->hasMany(ReportSg::class, 'id', 'id');
+    // }
 
     /**
      * Get the country code for this company

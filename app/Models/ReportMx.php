@@ -38,12 +38,12 @@ class ReportMx extends Model
     /**
      * Get all states that have this report available
      */
-    public function states()
-    {
-        return $this->belongsToMany(State::class, 'report_state', 'report_id', 'state_id')
-                    ->withPivot('amount')
-                    ->withTimestamps();
-    }
+    // public function states()
+    // {
+    //     return $this->belongsToMany(State::class, 'report_state', 'report_id', 'state_id')
+    //                 ->withPivot('amount')
+    //                 ->withTimestamps();
+    // }
 
     /**
      * Scope to get only active reports

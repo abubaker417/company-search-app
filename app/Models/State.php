@@ -27,18 +27,18 @@ class State extends Model
     /**
      * Get all companies in this state
      */
-    public function companies()
-    {
-        return $this->hasMany(CompanyMx::class, 'state_id');
-    }
+    // public function companies()
+    // {
+    //     return $this->hasMany(CompanyMx::class, 'state_id');
+    // }
 
     /**
      * Get all reports available for this state
      */
-    public function reports()
-    {
-        return $this->belongsToMany(ReportMx::class, 'report_state', 'state_id', 'report_id')
-                    ->withPivot('amount')
-                    ->withTimestamps();
-    }
+    // public function reports()
+    // {
+    //     return $this->belongsToMany(ReportMx::class, 'report_state', 'state_id', 'report_id')
+    //                 ->withPivot('amount')
+    //                 ->withTimestamps();
+    // }
 }

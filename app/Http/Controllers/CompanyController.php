@@ -111,37 +111,37 @@ class CompanyController extends Controller
     /**
      * Get company reports for AJAX requests
      */
-    public function getReports($country, $id)
-    {
-        if ($country === 'SG') {
-            $company = CompanySg::findOrFail($id);
-            $reports = ReportSg::active()->ordered()->get();
+    // public function getReports($country, $id)
+    // {
+    //     if ($country === 'SG') {
+    //         $company = CompanySg::findOrFail($id);
+    //         $reports = ReportSg::active()->ordered()->get();
             
-            return response()->json([
-                'company' => $company,
-                'reports' => $reports
-            ]);
-        } elseif ($country === 'MX') {
-            $company = CompanyMx::with('state')->findOrFail($id);
+    //         return response()->json([
+    //             'company' => $company,
+    //             'reports' => $reports
+    //         ]);
+    //     } elseif ($country === 'MX') {
+    //         $company = CompanyMx::with('state')->findOrFail($id);
             
-            $reports = collect();
-            if ($company->state) {
-                $reports = ReportState::with('report')
-                    ->where('state_id', $company->state_id)
-                    ->get()
-                    ->map(function ($reportState) {
-                        $report = $reportState->report;
-                        $report->price = $reportState->amount;
-                        return $report;
-                    });
-            }
+    //         $reports = collect();
+    //         if ($company->state) {
+    //             $reports = ReportState::with('report')
+    //                 ->where('state_id', $company->state_id)
+    //                 ->get()
+    //                 ->map(function ($reportState) {
+    //                     $report = $reportState->report;
+    //                     $report->price = $reportState->amount;
+    //                     return $report;
+    //                 });
+    //         }
             
-            return response()->json([
-                'company' => $company,
-                'reports' => $reports
-            ]);
-        }
+    //         return response()->json([
+    //             'company' => $company,
+    //             'reports' => $reports
+    //         ]);
+    //     }
 
-        return response()->json(['error' => 'Invalid country'], 404);
-    }
+    //     return response()->json(['error' => 'Invalid country'], 404);
+    // }
 }

@@ -44,18 +44,18 @@ class CompanyMx extends Model
     /**
      * Get reports available for this company based on its state
      */
-    public function reports()
-    {
-        return $this->hasManyThrough(
-            ReportState::class,
-            State::class,
-            'id', // Foreign key on states table
-            'state_id', // Foreign key on report_state table
-            'state_id', // Local key on companies table
-            'id' // Local key on states table
-        )->join('reports', 'report_state.report_id', '=', 'reports.id')
-         ->select('reports.*', 'report_state.amount as price');
-    }
+    // public function reports()
+    // {
+    //     return $this->hasManyThrough(
+    //         ReportState::class,
+    //         State::class,
+    //         'id', // Foreign key on states table
+    //         'state_id', // Foreign key on report_state table
+    //         'state_id', // Local key on companies table
+    //         'id' // Local key on states table
+    //     )->join('reports', 'report_state.report_id', '=', 'reports.id')
+    //      ->select('reports.*', 'report_state.amount as price');
+    // }
 
     /**
      * Get the country code for this company

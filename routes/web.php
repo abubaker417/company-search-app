@@ -28,7 +28,7 @@ Route::prefix('companies')->name('companies.')->group(function () {
     Route::get('/', [CompanyController::class, 'index'])->name('index');
     Route::get('/search', [CompanyController::class, 'search'])->name('search');
     Route::get('/{country}/{id}', [CompanyController::class, 'show'])->name('show');
-    Route::get('/{country}/{id}/reports', [CompanyController::class, 'getReports'])->name('reports');
+    // Route::get('/{country}/{id}/reports', [CompanyController::class, 'getReports'])->name('reports');
 });
 
 // Cart routes
